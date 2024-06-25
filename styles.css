@@ -1,3 +1,4 @@
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -6,6 +7,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Header styling */
 header {
     background: #333;
     color: #fff;
@@ -13,6 +15,7 @@ header {
     text-align: center;
 }
 
+/* Navigation menu styling */
 nav {
     background: #555;
     color: #fff;
@@ -30,18 +33,21 @@ nav ul li {
 }
 
 nav ul li a {
-    color: whitesmoke;
+    color: #fff;
     text-decoration: none;
 }
 
+/* Main content area styling */
 main {
     padding: 20px;
 }
 
+/* Section styling */
 section {
     margin-bottom: 20px;
 }
 
+/* Footer styling */
 footer {
     background: #333;
     color: #fff;
@@ -50,4 +56,20 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #0056b3;
 }
