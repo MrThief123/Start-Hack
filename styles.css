@@ -47,6 +47,30 @@ section {
     margin-bottom: 20px;
 }
 
+/* CSS section styling */
+#html {
+    background-color: lightyellow; /* Light blue background for the CSS section */
+    padding: 20px; /* Padding inside the CSS section */
+    border: 2px solid yellowgreen; /* Dark green border for the CSS section */
+    border-radius: 10px; /* Rounded corners for the CSS section */
+}
+
+/* CSS section styling */
+#css {
+    background-color: #e0f7fa; /* Light blue background for the CSS section */
+    padding: 20px; /* Padding inside the CSS section */
+    border: 2px solid #00796b; /* Dark green border for the CSS section */
+    border-radius: 10px; /* Rounded corners for the CSS section */
+}
+
+/* JavaScript section styling */
+#javascript {
+    background-color: #fff3e0; /* Light orange background for the JavaScript section */
+    padding: 20px; /* Padding inside the JavaScript section */
+    border: 2px solid #e65100; /* Dark orange border for the JavaScript section */
+    border-radius: 10px; /* Rounded corners for the JavaScript section */
+}
+
 /* Footer styling */
 footer {
     background: #333;
