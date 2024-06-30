@@ -30,7 +30,8 @@ setupCounter(document.querySelector('#counter'))
 document.querySelector('#goButton').addEventListener('click', () => {
   const url = document.querySelector('#urlInput').value
   if (url) {
-    window.open(url, '_blank')
+    window.open(url)
+    alert('The entered Url is ' + url)
   } else {
     alert('Please enter a URL')
   }
