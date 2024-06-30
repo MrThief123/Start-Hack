@@ -18,7 +18,20 @@ document.querySelector('#app').innerHTML = `
     <p class="read-the-docs">
       Click on the Vite logo to learn more
     </p>
+    <div>
+      <input type="text" id="urlInput" placeholder="Enter a URL" />
+      <button id="goButton">Go</button>
+    </div>
   </div>
 `
 
 setupCounter(document.querySelector('#counter'))
+
+document.querySelector('#goButton').addEventListener('click', () => {
+  const url = document.querySelector('#urlInput').value
+  if (url) {
+    window.open(url, '_blank')
+  } else {
+    alert('Please enter a URL')
+  }
+})

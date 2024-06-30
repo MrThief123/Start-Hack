@@ -82,6 +82,42 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+#urlInput {
+  margin-top: 1em;
+  padding: 0.5em;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#urlInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#goButton {
+  padding: 0.5em 1em;
+  margin-left: 0.5em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+#goButton:hover {
+  border-color: #646cff;
+}
+#goButton:focus,
+#goButton:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -90,7 +126,14 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  button, #goButton {
     background-color: #f9f9f9;
+  }
+  #urlInput {
+    background-color: #f9f9f9;
+    color: #213547;
+  }
+  #urlInput::placeholder {
+    color: #999;
   }
 }
