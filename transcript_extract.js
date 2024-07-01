@@ -1,17 +1,20 @@
 export function setupFetchAndDisplaySubtitles(goButton, urlInput) {
   goButton.addEventListener('click', async () => {
-    const videoUrl = 'https://www.youtube.com/watch?v=lkbV8oP-F44a';
+    const videoUrl = urlInput.value.trim(); // Assuming urlInput is an input element
 
-    fetch(`http://localhost:3001/fetchTranscript?url=${encodeURIComponent(videoUrl)}`)
-      .then(response => response.json())
-      .then(transcript => {
-        const transcriptString = transcript.map(item => item.text).join(' ');
+    try {
+      const response = await fetch(`http://localhost:3003/fetchTranscript?url=${encodeURIComponent(videoUrl)}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch transcript');
+      }
 
-        console.log(transcriptString);// Displaying transcript as an alert
-        alert(transcriptString)
-      })
-      .catch(error => {
-        console.error('Error fetching transcript:', error);
-      });
-  
-})}
+      const transcriptText = await response.text(); // Get the plain text response
+      
+      console.log('Transcript:', transcriptText); // Logging transcript to console
+      alert(transcriptText); // Displaying transcript as an alert
+    } catch (error) {
+      console.error('Error fetching transcript:', error);
+      alert('Error fetching transcript');
+    }
+  });
+}
