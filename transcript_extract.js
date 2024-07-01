@@ -18,7 +18,8 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
       console.log('Video Title:', videoTitle);
 
       // Update recent videos and recent videos table
-      updateRecentVideos({ url: videoUrl, title: videoTitle });
+      const currentDate = new Date().toLocaleDateString(); // Get the current date
+      updateRecentVideos({ url: videoUrl, title: videoTitle, date: currentDate });
       updateRecentVideosTable(recentVideosTableBody);
 
       // Display video title and transcript in UI as needed
@@ -75,6 +76,10 @@ function updateRecentVideosTable(recentVideosTableBody) {
     indexCell.textContent = index + 1;
     row.appendChild(indexCell);
     
+    const dateCell = document.createElement('td');
+    dateCell.textContent = video.date;
+    row.appendChild(dateCell);
+
     const titleCell = document.createElement('td');
     const titleLink = document.createElement('a');
     titleLink.textContent = video.title;

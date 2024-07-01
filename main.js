@@ -13,6 +13,7 @@ document.querySelector('#app').innerHTML = `
       <thead>
         <tr>
           <th>#</th>
+          <th>Date</th>
           <th>Title</th>
           <th>Lecture Delivery</th>
           <th>Engagement</th>
