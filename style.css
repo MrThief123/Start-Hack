@@ -118,6 +118,49 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #535151;
+}
+
+td a {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+td {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+td button {
+  padding: 6px 12px;
+  margin: 0;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+thead tr {
+  background-color: #ddd;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
