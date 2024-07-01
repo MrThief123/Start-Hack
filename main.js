@@ -2,7 +2,7 @@ import './style.css';
 import { setupFetchAndDisplaySubtitles } from './transcript_extract.js'; // Corrected import path
 
 document.querySelector('#app').innerHTML = `
-  <h1>Hello!</h1>
+  <h1>Hello Mr Einstein</h1>
   <div>
     <input type="text" id="urlInput" placeholder="Enter a URL" />
     <button id="goButton">Go</button>
