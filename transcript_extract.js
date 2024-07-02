@@ -23,16 +23,24 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
       const currentDate = new Date().toLocaleDateString(); // Get the current date
 
+      // make gtp figure this stuff out
+      let lectureDelivery = 8;
+      let engagement = 7;
+      let clarity = 1;
+      let overall = 9;
+      let feedback = 'Sample Feedback'
+
+
       const videoDetails = {
         url: videoUrl,
         title: videoTitle,
         date: currentDate,
-        lectureDelivery: 10,
-        engagement: 10,
-        clarity: 10,
-        overall: 10,
+        lectureDelivery: lectureDelivery,
+        engagement: engagement,
+        clarity: clarity,
+        overall: overall,
         transcript: transcriptText,
-        feedback: 'Sample feedback' // Replace with actual feedback
+        feedback: feedback // Replace with actual feedback
       };
 
       await saveVideoDetails(db, videoDetails);
