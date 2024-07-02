@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./style.css">
   <style>
     #feedbackDetails {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 20px auto;
       padding: 20px;
       background-color: #1a1a1a;
@@ -23,7 +23,7 @@
       font-weight: bold;
     }
     #backButton {
-      margin: 20px auto;
+      margin-top: 20px; /* Adjust margin to create space */
       display: block;
       padding: 10px 20px;
       background-color: #1a1a1a;
@@ -36,6 +36,7 @@
       transition: border-color 0.25s;
       text-align: center;
       text-decoration: none;
+      width: 100%; /* Make button full width */
     }
     #backButton:hover {
       border-color: #646cff;
@@ -47,7 +48,6 @@
   </style>
 </head>
 <body>
-  <h1>Detailed Feedback</h1>
   <div id="feedbackDetails">
     <p><strong>Date:</strong> <span id="feedbackDate">Loading...</span></p>
     <p><strong>Title:</strong> <span id="feedbackTitle">Loading...</span></p>
@@ -57,8 +57,10 @@
     <p><strong>Overall:</strong> <span id="feedbackOverall">Loading...</span></p>
     <p><strong>Transcript:</strong> <span id="feedbackTranscript">Loading...</span></p>
     <p><strong>Feedback:</strong> <span id="feedbackContent">Loading...</span></p>
+    
+    <a id="backButton" href="/">Back</a>
   </div>
-  <a id="backButton" href="/">Back</a>
+
   <script type="module" src="./feedback.js"></script>
 </body>
 </html>
