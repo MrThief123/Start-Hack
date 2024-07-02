@@ -1,3 +1,5 @@
+import { openDatabase, saveVideoDetails, getAllVideos } from './indexedDB.js';
+
 let recentVideos = [];
 
 export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTableBody) {
@@ -17,14 +19,31 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
       const videoTitle = await getVideoTitle(videoUrl); // Fetch video title
       console.log('Video Title:', videoTitle);
 
-      // Update recent videos and recent videos table
       const currentDate = new Date().toLocaleDateString(); // Get the current date
-      updateRecentVideos({ url: videoUrl, title: videoTitle, date: currentDate });
+
+      const videoDetails = {
+        url: videoUrl,
+        title: videoTitle,
+        date: currentDate,
+        lectureDelivery: 10,
+        engagement: 10,
+        clarity: 10,
+        overall: 10,
+        transcript: transcriptText,
+        feedback: 'Sample feedback' // Replace with actual feedback
+      };
+
+      const db = await openDatabase();
+      await saveVideoDetails(db, videoDetails);
+
+      recentVideos.push(videoDetails);
+      if (recentVideos.length > 5) {
+        recentVideos = recentVideos.slice(recentVideos.length - 5);
+      }
+      
       updateRecentVideosTable(recentVideosTableBody);
 
-      // Display video title and transcript in UI as needed
       displayVideoDetails(videoTitle, transcriptText);
-
     } catch (error) {
       console.error('Error fetching transcript:', error);
       alert('Error fetching transcript');
@@ -60,13 +79,6 @@ function getVideoIdFromUrl(url) {
   return match ? match[1] : null;
 }
 
-export function updateRecentVideos(video) {
-  recentVideos.push(video);
-  if (recentVideos.length > 5) {
-    recentVideos = recentVideos.slice(recentVideos.length - 5);
-  }
-}
-
 function updateRecentVideosTable(recentVideosTableBody) {
   recentVideosTableBody.innerHTML = '';
   recentVideos.forEach((video, index) => {
@@ -89,25 +101,27 @@ function updateRecentVideosTable(recentVideosTableBody) {
     row.appendChild(titleCell);
 
     const lectureDeliveryCell = document.createElement('td');
-    lectureDeliveryCell.textContent = '10/10';
+    lectureDeliveryCell.textContent = video.lectureDelivery;
     row.appendChild(lectureDeliveryCell);
 
     const engagementCell = document.createElement('td');
-    engagementCell.textContent = '10/10';
+    engagementCell.textContent = video.engagement;
     row.appendChild(engagementCell);
 
     const clarityCell = document.createElement('td');
-    clarityCell.textContent = '10/10';
+    clarityCell.textContent = video.clarity;
     row.appendChild(clarityCell);
 
     const overallCell = document.createElement('td');
-    overallCell.textContent = '10/10';
+    overallCell.textContent = video.overall;
     row.appendChild(overallCell);
 
     const actionsCell = document.createElement('td');
     const feedbackButton = document.createElement('button');
     feedbackButton.textContent = 'Detailed Feedback';
-    feedbackButton.onclick = () => alert('Detailed feedback for ' + video.title);
+    feedbackButton.onclick = () => {
+      window.location.href = `feedback.html?url=${encodeURIComponent(video.url)}`;
+    };
     actionsCell.appendChild(feedbackButton);
     row.appendChild(actionsCell);
     
@@ -115,12 +129,3 @@ function updateRecentVideosTable(recentVideosTableBody) {
   });
 }
 
-function displayVideoDetails(title, transcript) {
-  // Example: Displaying video title and transcript in the console
-  console.log('Video Title:', title);
-  console.log('Transcript:', transcript);
-
-  // You can update your UI here to display the video title and transcript
-  // Example: document.getElementById('videoTitle').textContent = title;
-  // Example: document.getElementById('transcript').textContent = transcript;
-}
