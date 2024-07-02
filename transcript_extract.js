@@ -1,8 +1,8 @@
+// transcript_extract.js
 import { openDatabase, saveVideoDetails, getAllVideos } from './indexedDB.js';
+import { updateRecentVideosTable } from './main.js';
 
-let recentVideos = [];
-
-export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTableBody) {
+export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTableBody, db, updateRecentVideos) {
   goButton.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
 
@@ -12,9 +12,11 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
         throw new Error('Failed to fetch transcript');
       }
 
-      const transcriptText = await response.text();
+      let encodedText = await response.text();
+      let transcriptText = encodedText.replace(/&amp;#(\d+);/g, function(match, dec) {
+          return String.fromCharCode(dec);
+      });
       console.log('Transcript:', transcriptText);
-  
 
       const videoTitle = await getVideoTitle(videoUrl); // Fetch video title
       console.log('Video Title:', videoTitle);
@@ -33,17 +35,12 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
         feedback: 'Sample feedback' // Replace with actual feedback
       };
 
-      const db = await openDatabase();
       await saveVideoDetails(db, videoDetails);
 
-      recentVideos.push(videoDetails);
-      if (recentVideos.length > 5) {
-        recentVideos = recentVideos.slice(recentVideos.length - 5);
-      }
-      
-      updateRecentVideosTable(recentVideosTableBody);
+      // Fetch all videos from IndexedDB after saving the new video
+      const recentVideos = await getAllVideos(db);
+      updateRecentVideos(recentVideosTableBody, recentVideos); // Update the table with all videos
 
-      displayVideoDetails(videoTitle, transcriptText);
     } catch (error) {
       console.error('Error fetching transcript:', error);
     }
@@ -77,54 +74,3 @@ function getVideoIdFromUrl(url) {
   const match = url.match(/[?&]v=([^&]+)/);
   return match ? match[1] : null;
 }
-
-function updateRecentVideosTable(recentVideosTableBody) {
-  recentVideosTableBody.innerHTML = '';
-  recentVideos.forEach((video, index) => {
-    const row = document.createElement('tr');
-    
-    const indexCell = document.createElement('td');
-    indexCell.textContent = index + 1;
-    row.appendChild(indexCell);
-    
-    const dateCell = document.createElement('td');
-    dateCell.textContent = video.date;
-    row.appendChild(dateCell);
-
-    const titleCell = document.createElement('td');
-    const titleLink = document.createElement('a');
-    titleLink.textContent = video.title;
-    titleLink.href = video.url;
-    titleLink.target = '_blank'; // Open link in a new tab
-    titleCell.appendChild(titleLink);
-    row.appendChild(titleCell);
-
-    const lectureDeliveryCell = document.createElement('td');
-    lectureDeliveryCell.textContent = video.lectureDelivery;
-    row.appendChild(lectureDeliveryCell);
-
-    const engagementCell = document.createElement('td');
-    engagementCell.textContent = video.engagement;
-    row.appendChild(engagementCell);
-
-    const clarityCell = document.createElement('td');
-    clarityCell.textContent = video.clarity;
-    row.appendChild(clarityCell);
-
-    const overallCell = document.createElement('td');
-    overallCell.textContent = video.overall;
-    row.appendChild(overallCell);
-
-    const actionsCell = document.createElement('td');
-    const feedbackButton = document.createElement('button');
-    feedbackButton.textContent = 'Detailed Feedback';
-    feedbackButton.onclick = () => {
-      window.location.href = `feedback.html?url=${encodeURIComponent(video.url)}`;
-    };
-    actionsCell.appendChild(feedbackButton);
-    row.appendChild(actionsCell);
-    
-    recentVideosTableBody.appendChild(row);
-  });
-}
-
