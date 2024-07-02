@@ -46,7 +46,6 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
       displayVideoDetails(videoTitle, transcriptText);
     } catch (error) {
       console.error('Error fetching transcript:', error);
-      alert('Error fetching transcript');
     }
   });
 }
