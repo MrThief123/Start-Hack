@@ -14,7 +14,7 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
       const transcriptText = await response.text();
       console.log('Transcript:', transcriptText);
-      alert(transcriptText);
+  
 
       const videoTitle = await getVideoTitle(videoUrl); // Fetch video title
       console.log('Video Title:', videoTitle);
