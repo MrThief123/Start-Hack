@@ -1,10 +1,13 @@
 // transcript_extract.js
+
+// Import functions from other modules
 import { openDatabase, saveVideoDetails, getAllVideos } from './indexedDB.js';
 import { updateRecentVideosTable } from './main.js';
 
+// Function to set up fetching and displaying subtitles
 export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTableBody, db, updateRecentVideos) {
   goButton.addEventListener('click', async () => {
-    const videoUrl = urlInput.value.trim();
+    const videoUrl = urlInput.value.trim(); // Get and trim the video URL from the input
 
     try {
       const response = await fetch(`http://localhost:3003/fetchTranscript?url=${encodeURIComponent(videoUrl)}`);
@@ -12,9 +15,10 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
         throw new Error('Failed to fetch transcript');
       }
 
+      // Decode HTML entities in the fetched transcript text
       let encodedText = await response.text();
       let transcriptText = encodedText.replace(/&amp;#(\d+);/g, function(match, dec) {
-          return String.fromCharCode(dec);
+        return String.fromCharCode(dec);
       });
       console.log('Transcript:', transcriptText);
 
@@ -25,15 +29,14 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
 
 
-    
-      // make gtp figure this stuff out
+      //make gtp figure out
       let lectureDelivery = 8;
       let engagement = 7;
       let clarity = 1;
       let overall = 9;
-      let feedback = 'Sample Feedback'
+      let feedback = 'Sample Feedback';
 
-
+      // Create an object to store video details
       const videoDetails = {
         url: videoUrl,
         title: videoTitle,
@@ -43,21 +46,22 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
         clarity: clarity,
         overall: overall,
         transcript: transcriptText,
-        feedback: feedback // Replace with actual feedback
+        feedback: feedback 
       };
 
-      await saveVideoDetails(db, videoDetails);
+      await saveVideoDetails(db, videoDetails); // Save video details to IndexedDB
 
       // Fetch all videos from IndexedDB after saving the new video
       const recentVideos = await getAllVideos(db);
       updateRecentVideos(recentVideosTableBody, recentVideos); // Update the table with all videos
 
     } catch (error) {
-      console.error('Error fetching transcript:', error);
+      console.error('Error fetching transcript:', error); // Log any errors
     }
   });
 }
 
+// Function to fetch the video title from YouTube API
 async function getVideoTitle(videoUrl) {
   try {
     const videoId = getVideoIdFromUrl(videoUrl);
@@ -73,15 +77,16 @@ async function getVideoTitle(videoUrl) {
     }
 
     const data = await response.json();
-    const videoTitle = data.items[0].snippet.title;
+    const videoTitle = data.items[0].snippet.title; // Extract video title from response data
     return videoTitle;
   } catch (error) {
-    console.error('Error fetching video title:', error);
+    console.error('Error fetching video title:', error); // Log any errors
     return 'Video Title'; // Fallback title or error handling
   }
 }
 
+// Function to extract video ID from the YouTube URL
 function getVideoIdFromUrl(url) {
   const match = url.match(/[?&]v=([^&]+)/);
-  return match ? match[1] : null;
+  return match ? match[1] : null; // Return video ID if found, otherwise null
 }
