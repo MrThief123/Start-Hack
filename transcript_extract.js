@@ -23,6 +23,9 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
       const currentDate = new Date().toLocaleDateString(); // Get the current date
 
+
+
+    
       // make gtp figure this stuff out
       let lectureDelivery = 8;
       let engagement = 7;
