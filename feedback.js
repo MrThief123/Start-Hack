@@ -37,8 +37,10 @@ function displayVideoDetails(videoDetails) {
   document.getElementById('feedbackTitle').textContent = videoDetails.title; // Set the title
   document.getElementById('feedbackLectureDelivery').textContent = videoDetails.lectureDelivery; // Set lecture delivery rating
   document.getElementById('feedbackEngagement').textContent = videoDetails.engagement; // Set engagement rating
-  document.getElementById('feedbackClarity').textContent = videoDetails.clarity; // Set clarity rating
+  
+  document.getElementById('feedbackClarity').innerHTML = videoDetails.clarity;
   document.getElementById('feedbackOverall').textContent = videoDetails.overall; // Set overall rating
-  document.getElementById('feedbackTranscript').textContent = videoDetails.transcript; // Set the transcript text
-  document.getElementById('feedbackContent').textContent = videoDetails.feedback; // Set the feedback content
+  //document.getElementById('feedbackTranscript').textContent = videoDetails.transcript; // Set the transcript text
+  let a = videoDetails.feedback;
+  document.getElementById('feedbackContent').innerHTML= a; // Set the feedback content
 }
