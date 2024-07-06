@@ -1,0 +1,5 @@
+openai==0.28
+ffmpeg-python
+openai-whisper
+streamlit
+pytube
