@@ -35,6 +35,7 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
       let clarity = 1;
       let overall = 9;
       let feedback = 'Sample Feedback';
+      console.log(transcriptText)
 
       // Create an object to store video details
       const videoDetails = {
