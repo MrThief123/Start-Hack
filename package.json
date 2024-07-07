@@ -15,9 +15,11 @@
   "dependencies": {
     "cor": "^0.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "http-proxy-middleware": "^3.0.0",
     "node-fetch": "^3.3.2",
+    "openai": "^4.52.3",
     "youtube-transcript": "^1.2.1",
     "youtube-transcript-api": "^1.1.2"
   }
