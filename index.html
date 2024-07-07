@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Main Page</title>
   <link rel="stylesheet" href="./style.css">
+  <script>
+    // Check if the user is logged in
+    if (!localStorage.getItem('loggedIn')) {
+      // If not logged in, redirect to the login page
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
   <div id="app">
@@ -12,6 +19,7 @@
     <div>
       <input type="text" id="urlInput" placeholder="Enter a URL" />
       <button id="goButton">Go</button>
+      
     </div>
     <div>
       <h2>Recent Videos</h2>
@@ -35,10 +43,17 @@
     </div>
     <h1></h1>
     <button id="clearButton">Clear All</button>
-
-
+    <button id="logoutButton">Logout</button>
   </div>
 
   <script type="module" src="./main.js"></script>
+  <script>
+    document.getElementById('logoutButton').addEventListener('click', function() {
+      // Remove the logged-in flag from localStorage
+      localStorage.removeItem('loggedIn');
+      // Redirect to the login page
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
 </html>
