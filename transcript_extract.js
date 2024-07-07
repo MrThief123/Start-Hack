@@ -4,6 +4,8 @@
 import { openDatabase, saveVideoDetails, getAllVideos } from './indexedDB.js';
 import { updateRecentVideosTable } from './main.js';
 
+
+
 // Function to set up fetching and displaying subtitles
 export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTableBody, db, updateRecentVideos) {
   goButton.addEventListener('click', async () => {
@@ -27,20 +29,11 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
       const currentDate = new Date().toLocaleDateString(); // Get the current date
 
-
-
-      //make gtp figure out
-      let lectureDelivery = 8;
-      let engagement = 7;
-      let clarity = 1;
-      let overall = 9;
-      let feedback = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Feedback on Your Lecture</title>
+      let input = `
+giving ratings out of 10 for lecture delievery, engagment clairty and overal. I want you to thoroughly analyse my portion of the transcription from the lecture and provide detailed feedback on how I can improve the delivery, tone, explanation, and examples to better help the students understand and grasp the topic and also improve engagement if possible. Also provide detailed feedback on this I did well and should continue to do. be as specific as possible with all feedback and include lots of detail. Provide feedback as you deem fit. Also give a numerical rating out of 10    
+ You are strict and critical and are not scared to admit my when the lecture or delivery is subpar.  Rate the transcript from my lecture out of 10 Do not be scared to give low ratingsif the lecture is bad. Do not always assume that all learners sitting the lecture are beginners:
+output the feedback as html in the template given below make sure to fill out everything. If for example there isnt anythign for for a section  leave it blank. ALWAYS leave a rating where it says rating  out of /10 but do not change the format of the ratings part
+<title>Detailed Feedback on Your Lecture</title>
     <style>
         body {
             font-family: 'Source Sans Pro Light', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -62,129 +55,65 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
 
     <div>
         <h2>Delivery and Tone</h2>
-        
+        <p>Rating: /10</p>
         <div>
             <h3>What You Did Well:</h3>
             <ul>
-                <li>You provided a clear structure by recapping previous lectures and introducing the main topics for the current lecture.</li>
-                <li>Your tone is conversational and approachable, which can make complex topics more accessible to students.</li>
             </ul>
         </div>
         
         <div>
             <h3>Suggestions for Improvement:</h3>
-            <p>Rating: ★★★★☆ (4/5)</p>
+            
             <ul>
-                <li>While your tone is engaging, consider varying your pitch and pace more to emphasize key points and maintain student interest.</li>
-                <li>Transitions: Use smoother transitions between topics to help students follow the flow of the lecture. For example, when moving from the topic of justice to specific questions like taxation or immigration, clearly signal this shift and explain the connection.</li>
+                <li></li>
             </ul>
         </div>
+        <h2></h2>
     </div>
 
-    <div>
-        <h2>Engagement</h2>
-
-        <div>
-            <h3>What You Did Well:</h3>
-            <ul>
-                <li>You ask rhetorical questions and invite students to think about their own intuitions, which helps engage them.</li>
-                <li>You relate abstract concepts to real-world issues (e.g., taxation, healthcare, employment contracts).</li>
-            </ul>
-        </div>
-
-        <div>
-            <h3>Suggestions for Improvement:</h3>
-            <p>Rating: ★★★★☆ (4/5)</p>
-            <ul>
-                <li>Increase student interaction by incorporating more direct questions and opportunities for discussion. For example, pause after introducing a new concept and ask for their thoughts or examples.</li>
-                <li>Interactive Elements: Use more interactive elements such as quick polls, think-pair-share activities, or short group discussions to break up the lecture and make it more dynamic.</li>
-            </ul>
-        </div>
-    </div>
+    (same for engagment then clarity)
 
     <div>
         <h2>Explanation and Examples</h2>
-
+        <p>Rating: /10</p> 
         <div>
             <h3>What You Did Well:</h3>
             <ul>
-                <li>You effectively introduce complex philosophical ideas and provide clear definitions.</li>
-                <li>You use practical examples to illustrate abstract concepts, which helps students understand the relevance of these theories.</li>
             </ul>
         </div>
 
         <div>
             <h3>Suggestions for Improvement:</h3>
-            <p>Rating: ★★★★☆ (4/5)</p>
+            
             <ul>
-                <li>While your explanations are clear, try to simplify some of the jargon and provide more concrete examples. For instance, when discussing Rawls’ idea of the "veil of ignorance," give a detailed, step-by-step example of how it might be applied to a real-world policy decision.</li>
-                <li>Analogies and Metaphors: Incorporate more analogies and metaphors to make abstract concepts more relatable. For example, compare the "veil of ignorance" to a situation where students have to make rules for a game without knowing their role in it.</li>
             </ul>
         </div>
+        <h2></h2>
     </div>
 
-    <div>
-        <h2>Depth and Breadth</h2>
-
-        <div>
-            <h3>What You Did Well:</h3>
-            <ul>
-                <li>You cover a broad range of topics and provide a comprehensive overview of the theories of justice and utilitarianism.</li>
-                <li>You mention criticisms and alternative perspectives, which enriches the discussion.</li>
-            </ul>
-        </div>
-
-        <div>
-            <h3>Suggestions for Improvement:</h3>
-            <p>Rating: ★★★★☆ (4/5)</p>
-            <ul>
-                <li>Provide more depth in certain areas by elaborating on key points. For example, delve deeper into Rawls' two principles of justice and how they contrast with utilitarian views.</li>
-                <li>Case Studies: Use more detailed case studies to illustrate points. For example, discuss a specific tax policy or healthcare decision and analyze it from both a utilitarian and Rawlsian perspective.</li>
-            </ul>
-        </div>
-    </div>
 
     <div>
         <h2>Content Specific Feedback</h2>
-
+        <p>Rating: /10</p>
         <div>
-            <h3>Utilitarianism</h3>
+            <h3>topic1</h3> (use a maximum of 3 topics)
 
             <div>
                 <h4>What You Did Well:</h4>
                 <ul>
-                    <li>You clearly explain the basic premise of utilitarianism and why it is intuitively appealing.</li>
                 </ul>
             </div>
 
             <div>
                 <h4>Suggestions for Improvement:</h4>
-                <p>Rating: ★★★★☆ (4/5)</p>
+                
                 <ul>
-                    <li>Discuss common criticisms of utilitarianism in more detail and provide examples of how these criticisms manifest in real-world scenarios. For instance, explore the potential issues with utilitarian approaches to healthcare prioritization.</li>
                 </ul>
             </div>
         </div>
+        <h2></h2>
 
-        <div>
-            <h3>Rawls’ Theory of Justice</h3>
-
-            <div>
-                <h4>What You Did Well:</h4>
-                <ul>
-                    <li>You provide a good introduction to Rawls' ideas and their significance in political philosophy.</li>
-                </ul>
-            </div>
-
-            <div>
-                <h4>Suggestions for Improvement:</h4>
-                <p>Rating: ★★★★☆ (4/5)</p>
-                <ul>
-                    <li>Spend more time explaining key concepts such as the "original position" and the "difference principle." Use diagrams or visual aids to help students visualize these abstract ideas.</li>
-                    <li>Real-World Applications: Highlight more real-world applications of Rawls’ principles. For example, discuss how his theory might influence modern debates on income inequality or educational reform.</li>
-                </ul>
-            </div>
-        </div>
     </div>
 
     <div>
@@ -193,30 +122,56 @@ export function setupFetchAndDisplaySubtitles(goButton, urlInput, recentVideosTa
         <div>
             <h3>Strengths:</h3>
             <ul>
-                <li>Engaging and approachable tone.</li>
-                <li>Clear structure and logical flow.</li>
-                <li>Effective use of real-world examples.</li>
             </ul>
         </div>
 
         <div>
             <h3>Areas for Improvement:</h3>
             <ul>
-                <li>Increase student interaction and engagement through more direct questions and interactive elements.</li>
-                <li>Simplify jargon and provide more concrete examples and analogies.</li>
-                <li>Offer deeper explanations of key concepts and incorporate more detailed case studies.</li>
             </ul>
-            <p>Overall Rating: ★★★★☆ (4/5)</p>
+            <p>Overall Rating: /10</p>
         </div>
     </div>
 
 </body>
-</html>
 `;
+      // Parse the HTML string
+// Parse the HTML string
 
-      
+    let feedback = await textToPrompt(transcriptText + input);
+    console.log(feedback)
+    var el = document.createElement( 'html' );
+    el.innerHTML = feedback;
 
-      console.log(transcriptText)
+    var ratings = el.getElementsByTagName('p');
+    var ratingList = [];
+
+    const scoreRegex = /Rating: (\d+(\.\d+)?)/;
+    
+    for (let i = 0; i < ratings.length; i++) {
+        const text = ratings[i].textContent.trim();
+        const match = text.match(scoreRegex);
+    
+        if (match) {
+            const score = parseFloat(match[1]);
+            ratingList.push(score);
+        } else {
+            console.log(`No match found for element ${i}: "${text}"`);
+        }
+    }
+
+    
+    let overall = parseFloat(ratingList[ratingList.length - 1]);
+    let lectureDelivery = parseFloat(ratingList[0]);
+    let clarity = parseFloat(ratingList[2]);
+    let engagement = parseFloat(ratingList[1]);
+    
+
+    
+
+
+
+     console.log(ratingList)
 
       // Create an object to store video details
       const videoDetails = {
@@ -272,3 +227,50 @@ function getVideoIdFromUrl(url) {
   const match = url.match(/[?&]v=([^&]+)/);
   return match ? match[1] : null; // Return video ID if found, otherwise null
 }
+
+
+async function textToPrompt(message) {
+    const apiKey = 'sk-proj-hxBaD11hz4kLiZEPWwniT3BlbkFJ9613fGK0er83TTWOQLPN'; // Replace with your OpenAI API key
+    const model = 'gpt-4o'; // Specify GPT-3.5 model name
+    
+    // Construct the endpoint URL for chat completions
+    const endpoint = `https://api.openai.com/v1/chat/completions`;
+    
+    // Make a POST request to the chat endpoint
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: model,
+            messages: [
+                {
+                    role: 'user',
+                    content: message
+                }
+            ]
+        })
+    });
+
+    // Handle errors if the response is not OK
+    if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${await response.text()}`);
+    }
+
+    // Parse the JSON response
+    const responseData = await response.json();
+    
+    // Extract and trim the text from the model's response
+    const gptResponse = responseData.choices[0].message.content.trim();
+    
+    // Return the trimmed response text
+    return gptResponse;
+}
+
+
+
+
+
+
