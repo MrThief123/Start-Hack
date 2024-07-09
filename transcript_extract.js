@@ -230,7 +230,7 @@ function getVideoIdFromUrl(url) {
 
 
 async function textToPrompt(message) {
-    const apiKey = 'sk-proj-hxBaD11hz4kLiZEPWwniT3BlbkFJ9613fGK0er83TTWOQLPN'; // Replace with your OpenAI API key
+    const apiKey = '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'; // Replace with your OpenAI API key
     const model = 'gpt-4o'; // Specify GPT-3.5 model name
     
     // Construct the endpoint URL for chat completions
