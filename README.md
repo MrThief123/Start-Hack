@@ -155,28 +155,6 @@ Most importantly, we learned that effective AI feedback should not just identify
 
 ---
 
-## Applications
-
-Speak Savvy can be applied across a range of settings.
-
-### Education
-
-Help students and lecturers improve presentations, lectures, tutorials, and oral assessments.
-
-### Professional Communication
-
-Help professionals improve presentations, meetings, pitches, and interviews.
-
-### Public Speaking
-
-Provide individuals with personalised coaching when preparing speeches and presentations.
-
-### Career Development
-
-Help users develop communication skills that are valuable for interviews, networking, and workplace presentations.
-
----
-
 ## What's Next
 
 Future development could expand Speak Savvy into a more comprehensive AI public-speaking coach.
