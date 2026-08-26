@@ -1,5 +1,13 @@
 # Speak Savvy
 
+## Demo
+
+Watch the Speak Savvy demo to see the application in action:
+
+[![Speak Savvy Demo](https://img.youtube.com/vi/COjEP-KQeGk/maxresdefault.jpg)](https://www.youtube.com/watch?v=COjEP-KQeGk&t=8s)
+
+[▶️ Watch the Demo on YouTube](https://www.youtube.com/watch?v=COjEP-KQeGk&t=8s)
+
 ## Overview
 
 **Speak Savvy** is an AI-powered public speaking and speech coaching application that provides personalised feedback to help users become more effective communicators.
